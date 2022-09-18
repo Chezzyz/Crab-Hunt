@@ -29,6 +29,11 @@ namespace Characters.Players
         {
             GetComponentInChildren<SpriteRenderer>().sprite = skin;
         }
+
+        public void SetSpriteVisible(bool state)
+        {
+            GetComponentInChildren<SpriteRenderer>().enabled = state;
+        }
         
         public string GetName()
         {

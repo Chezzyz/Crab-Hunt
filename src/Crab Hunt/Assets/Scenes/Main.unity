@@ -598,6 +598,71 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 232469580}
   m_CullTransparentMesh: 1
+--- !u!1 &287758937
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 287758939}
+  - component: {fileID: 287758938}
+  m_Layer: 0
+  m_Name: GameSoundsHandler
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &287758938
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 287758937}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 850e7ee59b50404a875d2c6cabb46805, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _shotSound: {fileID: 8300000, guid: 9a9471f5f8d52b3438128965c9cbb7eb, type: 3}
+  _shotSoundVolumeScale: 0.15
+  _shotSoundPitch: 1
+  _stunSound: {fileID: 8300000, guid: 325a3fa11fe54c54bb7569ee862c8bdc, type: 3}
+  _stunSoundVolumeScale: 0.7
+  _stunSoundPitch: 1
+  _addScoreSound: {fileID: 8300000, guid: e22ed816f0fa73a4297f5a36186e0c28, type: 3}
+  _addScoreSoundVolumeScale: 0.25
+  _addScoreSoundPitch: 1
+  _coffeeBonusSound: {fileID: 8300000, guid: 954d73ef3aae3b34490ba9a1f5f40601, type: 3}
+  _coffeeBonusSoundVolumeScale: 0.15
+  _coffeeBonusSoundPitch: 1.3
+  _shieldBonusSound: {fileID: 8300000, guid: 2d770a4e4c565004998de3fecbee8d1a, type: 3}
+  _shieldBonusSoundVolumeScale: 0.125
+  _shieldBonusSoundPitch: 1.5
+  _holidaysBonusSound: {fileID: 8300000, guid: d2ac7cb00458d0443ab33a74d9b823b1, type: 3}
+  _holidaysBonusSoundVolumeScale: 1
+  _holidaysBonusSoundPitch: 1.4
+  _documentsBonusSound: {fileID: 8300000, guid: 4c7644090acd2c445b54b9616862b82f, type: 3}
+  _documentsBonusSoundVolumeScale: 0.65
+  _documentsBonusSoundPitch: 1.4
+--- !u!4 &287758939
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 287758937}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &353140833
 GameObject:
   m_ObjectHideFlags: 0
@@ -2710,8 +2775,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 1140850687
-  m_fontColor: {r: 1, g: 1, b: 1, a: 0.2627451}
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -2890,7 +2955,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 910111368}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 985.6809, y: 295.54504, z: 1.0848997}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3926,11 +3991,23 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 0
+  m_Interactable: 1
   m_TargetGraphic: {fileID: 865957594}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 902850767}
+        m_TargetAssemblyTypeName: Services.SceneLoader, Assembly-CSharp
+        m_MethodName: LoadScene
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Tutorial
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!222 &1476214691
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -5290,7 +5367,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4195554083449772300, guid: 7e5ee170052df4049a1bf4d8d4875ed5, type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4195554083449772300, guid: 7e5ee170052df4049a1bf4d8d4875ed5, type: 3}
       propertyPath: m_LocalPosition.x

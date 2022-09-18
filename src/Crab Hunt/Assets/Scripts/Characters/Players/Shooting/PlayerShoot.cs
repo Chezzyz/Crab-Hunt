@@ -1,4 +1,5 @@
-﻿using Photon.Pun;
+﻿using System;
+using Photon.Pun;
 using Services;
 using UnityEngine;
 
@@ -12,6 +13,7 @@ namespace Characters.Players.Shooting
         private ProjectilesPool _projectilesPool;
         private WallsService _wallsService;
 
+        public static event Action Shooted;
 
         private void OnEnable()
         {
@@ -28,7 +30,12 @@ namespace Characters.Players.Shooting
         private void OnShootButtonPressed()
         {
             if (!photonView.IsMine) return;
-            photonView.RPC(nameof(Shoot), RpcTarget.All, transform.rotation.eulerAngles.z, transform.position);
+            if (PhotonNetwork.CurrentLobby != null)
+            {
+                photonView.RPC(nameof(Shoot), RpcTarget.All, transform.rotation.eulerAngles.z, transform.position);
+                return;
+            }
+            Shoot(transform.rotation.eulerAngles.z, transform.position);
          }
 
         [PunRPC]
@@ -42,6 +49,7 @@ namespace Characters.Players.Shooting
             if (!_wallsService.HasTileOnPosition(_wallsService.WorldToCellPosition(createPosition)))
             {
                 EnableProjectile(createPosition, Quaternion.Euler(0, 0, angleZ));
+                Shooted?.Invoke();
             }
         }
 

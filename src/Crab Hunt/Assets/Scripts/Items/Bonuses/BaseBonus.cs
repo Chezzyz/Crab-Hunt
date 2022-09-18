@@ -6,18 +6,13 @@ using UnityEngine;
 
 namespace Items.Bonuses
 {
-    public abstract class BaseBonus : MonoBehaviourPun
+    public abstract class BaseBonus : MonoBehaviour
     {
         public static event Action<Player, Action<Player>> BonusPickedUp;
 
         public void SendEvent(Player player)
         {
             BonusPickedUp?.Invoke(player, GetAction());
-        }
-
-        public int GetViewId()
-        {
-            return photonView.ViewID;
         }
 
         public int GetSelfIndexInPool()

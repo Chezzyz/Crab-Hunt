@@ -10,12 +10,15 @@ namespace Items.Bonuses
     public class HolidaysBonus : BaseBonus
     {
         [SerializeField] private float _duration;
+
+        public static event Action HolidaysBonusPickedUp;
         
         protected override Action<Player> GetAction()
         {
             return player =>
             {
                 StartCoroutine(StunAllExceptPlayer(player, _duration));
+                HolidaysBonusPickedUp?.Invoke();
             };
         }
 

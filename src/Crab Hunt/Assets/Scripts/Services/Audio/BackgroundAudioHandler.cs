@@ -31,6 +31,7 @@ namespace Services.Audio
                 "ConnectMenu" => () => PlayClip(_menuMusic, volumeScale: _menuMusicVolumeScale),
                 "Lobby" => () => PlayClip(_lobbyMusic, volumeScale: _lobbyMusicVolumeScale),
                 "Room" => () => PlayClip(_roomMusic, volumeScale: _roomMusicVolumeScale),
+                "Tutorial" => () => PlayClip(_lobbyMusic, volumeScale: _lobbyMusicVolumeScale),
                 _ => () => Debug.LogWarning("Music for this stage is not implemented")
             };
             play();

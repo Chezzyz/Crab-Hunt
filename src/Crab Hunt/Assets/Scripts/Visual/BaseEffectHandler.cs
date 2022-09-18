@@ -7,7 +7,7 @@ namespace Visual
 {
     public abstract class BaseEffectHandler : MonoBehaviour
     {
-        protected SpriteRenderer GetNewSpriteRenderer(Player player, string rendererName)
+        protected SpriteRenderer CreateSpriteRenderer(Player player, string rendererName)
         {
             SpriteRenderer spriteRenderer = Instantiate(GetSpriteRendererPrefab(), player.transform);
             spriteRenderer.name = rendererName;

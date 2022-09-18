@@ -26,7 +26,7 @@ namespace Visual
         {
             if (!state)
             {
-                SpriteRenderer spriteRenderer = GetNewSpriteRenderer(player, _rendererName);
+                SpriteRenderer spriteRenderer = CreateSpriteRenderer(player, _rendererName);
                 SetSprite(spriteRenderer, _stunSprite);
                 spriteRenderer.transform.DOLocalRotate(new Vector3(0, 0, 360), _animationDuration,
                     RotateMode.FastBeyond360).SetLoops(-1).SetEase(Ease.Linear);

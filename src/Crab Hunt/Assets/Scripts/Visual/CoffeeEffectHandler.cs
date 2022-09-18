@@ -24,7 +24,7 @@ namespace Visual
         {
             if (state)
             {
-                SpriteRenderer spriteRenderer = GetNewSpriteRenderer(player, _rendererName);
+                SpriteRenderer spriteRenderer = CreateSpriteRenderer(player, _rendererName);
                 SetSprite(spriteRenderer, _coffeeSprite);
                 spriteRenderer.transform.localPosition = _spritePosition;
             }

@@ -9,12 +9,9 @@ namespace Services
     public class SceneLoader : MonoBehaviour
     {
         [SerializeField]
-        private string _mainMenuScene;
-        [SerializeField]
         private float _sceneTransitionDuration;
 
         public static event System.Action<string> SceneLoaded;
-        public static event System.Action<float> SceneLoadStarted;
 
         private void OnEnable()
         {
@@ -32,17 +29,8 @@ namespace Services
             {
                 delay = _sceneTransitionDuration;
             }
-            if (gameObject != null)
-            {
-                SceneLoadStarted?.Invoke(delay);
-            }
             yield return new WaitForSecondsRealtime(delay);
             SceneManager.LoadScene(sceneName);
-        }
-
-        public void LoadMainMenu()
-        {
-            LoadScene(_mainMenuScene);
         }
 
         public void LoadRoom()

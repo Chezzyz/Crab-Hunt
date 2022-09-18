@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Characters.Players;
 using Services;
+using Services.Tutorial;
 using UnityEngine;
 
 
@@ -19,6 +20,7 @@ namespace UI
         {
             PlayerScoreHandler.ScoreChanged += OnScoreChanged;
             PlayerSpawner.PlayerCreated += OnPlayerCreated;
+            TutorialScript.TutorialStarted += OnPlayerCreated;
         }
 
         private void OnPlayerCreated(Player player)
@@ -46,6 +48,7 @@ namespace UI
         {
             PlayerScoreHandler.ScoreChanged -= OnScoreChanged;
             PlayerSpawner.PlayerCreated -= OnPlayerCreated;
+            TutorialScript.TutorialStarted -= OnPlayerCreated;
         }
     }
 }

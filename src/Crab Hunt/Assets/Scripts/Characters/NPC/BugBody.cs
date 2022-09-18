@@ -22,8 +22,8 @@ namespace Characters.NPC
             ShootingProjectile projectile = col.GetComponentInParent<ShootingProjectile>();
             if (projectile != null)
             {
-                projectile.GetPlayer().ChangeScore(GetComponentInParent<Bug>().GetScorePlus());
                 projectile.gameObject.SetActive(false);
+                projectile.GetPlayer().ChangeScore(GetComponentInParent<Bug>().GetScorePlus());
                 GetComponentInParent<BaseBonus>().gameObject.SetActive(false);
                 gameObject.SetActive(false);
             }

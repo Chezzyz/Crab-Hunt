@@ -23,8 +23,7 @@ namespace Characters.Players
 
         public void ChangeScore(int diff)
         {
-            if(_score + diff < 0) return;
-            _score += diff;
+            _score = _score + diff < 0 ? 0 : _score + diff;
             ScoreChanged?.Invoke(_player, diff, _score);
         }
     }

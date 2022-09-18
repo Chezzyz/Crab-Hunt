@@ -56,8 +56,8 @@ namespace Characters.NPC
         {
             return player =>
             {
-                StartCoroutine(StunPlayer(player, _stunDuration));
                 SubtractScore(player, _scoreMinus);
+                StartCoroutine(StunPlayer(player, _stunDuration));
             };
         }
 
