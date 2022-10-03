@@ -5,8 +5,18 @@ using Photon.Pun;
 
 namespace Items.Bonuses
 {
-    public abstract class BaseBonusPool : AbstractPool<BaseBonus> 
+    public abstract class BaseBonusPool : AbstractPool<BaseBonus>
     {
+        private void Awake()
+        {
+            for (int i = 0; i < GetPool().Count; i++)
+            {
+                BaseBonus bonus = GetElementAt(i);
+                BonusBody body = bonus.GetComponentInChildren<BonusBody>();
+                body.SetId($"{GetIdPrefix()}_{i}");
+            }
+        }
+
         public override BaseBonus GetRandomFreeElement()
         {
             BaseBonus bonus = base.GetRandomFreeElement();
@@ -17,7 +27,7 @@ namespace Items.Bonuses
         {
             return GetPool()[index];
         }
-        
+
         public int GetIndexOfElement(BaseBonus bonus)
         {
             return GetPool().FindIndex(elem => elem == bonus);
@@ -27,7 +37,9 @@ namespace Items.Bonuses
         {
             return photonView.ViewID;
         }
-        
+
+        protected abstract string GetIdPrefix();
+
         protected override BaseBonus GetElementPrefab()
         {
             throw new NotImplementedException();

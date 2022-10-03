@@ -46,6 +46,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43b1cac6cb9e4d3987a84b87aee21f0b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _idPrefix: holidays
   _holidaysBonusPool:
   - {fileID: 6017727328180483692}
 --- !u!114 &8347746073548909979

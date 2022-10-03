@@ -61,6 +61,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d7717a1093d4152aa75c118e64e6c93, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _idPrefix: bug
   _bugPool:
   - {fileID: 4145039198091136381}
   - {fileID: 4145039197104746468}

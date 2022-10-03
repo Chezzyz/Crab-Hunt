@@ -47,6 +47,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5d18b09d78f4dec97f230107f49918e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _idPrefix: shield
   _shieldBonusPool:
   - {fileID: 3580289177471073940}
   - {fileID: 8638011022567509973}

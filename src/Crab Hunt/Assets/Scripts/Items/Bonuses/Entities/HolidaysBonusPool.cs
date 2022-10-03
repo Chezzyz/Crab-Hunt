@@ -5,6 +5,7 @@ namespace Items.Bonuses.Entities
 {
     public class HolidaysBonusPool : BaseBonusPool
     {
+        [SerializeField] private string _idPrefix;
         [SerializeField] private List<BaseBonus> _holidaysBonusPool;
 
         protected override List<BaseBonus> GetPool()
@@ -12,5 +13,9 @@ namespace Items.Bonuses.Entities
             return _holidaysBonusPool;
         }
 
+        protected override string GetIdPrefix()
+        {
+            return _idPrefix;
+        }
     }
 }

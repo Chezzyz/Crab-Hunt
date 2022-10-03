@@ -10,7 +10,7 @@ namespace Services.Tutorial.Tasks
     public class PickupBonusesTask : AbstractTask
     {
         [SerializeField] private GameObject _bonusPools;
-        [SerializeField] private Image _bonusesTable;
+        [SerializeField] private GameObject _bonusesTable;
 
         private bool _coffeeBonusPickedUp;
         private bool _shieldBonusPickedUp;
@@ -69,7 +69,7 @@ namespace Services.Tutorial.Tasks
         protected override void OnActive()
         {
             _bonusPools.SetActive(true);    
-            _bonusesTable.enabled = true;
+            _bonusesTable.SetActive(true);
         }
 
         private void OnDisable()

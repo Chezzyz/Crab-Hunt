@@ -30,7 +30,7 @@ namespace Characters.Players.Shooting
         private void OnShootButtonPressed()
         {
             if (!photonView.IsMine) return;
-            if (PhotonNetwork.CurrentLobby != null)
+            if (PhotonNetwork.IsConnected)
             {
                 photonView.RPC(nameof(Shoot), RpcTarget.All, transform.rotation.eulerAngles.z, transform.position);
                 return;

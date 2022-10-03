@@ -12,12 +12,7 @@ namespace Characters.NPC
     {
         protected override void OnTriggerEnter2D(Collider2D col)
         {
-            if (col.GetComponentInParent<Player>() != null)
-            {
-                BaseBonus baseBonus = GetComponentInParent<BaseBonus>();
-                baseBonus.SendEvent(col.GetComponentInParent<Player>());
-                gameObject.SetActive(false);
-            }
+            base.OnTriggerEnter2D(col);
 
             ShootingProjectile projectile = col.GetComponentInParent<ShootingProjectile>();
             if (projectile != null)

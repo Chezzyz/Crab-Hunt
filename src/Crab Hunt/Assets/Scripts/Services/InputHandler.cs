@@ -44,7 +44,7 @@ namespace Services
         private void Start()
         {
             _player = GetComponent<Player>();
-            if (!_player.GetComponent<PhotonView>().IsMine) return;
+            if (_player.GetComponent<PhotonView>() == null || !_player.GetComponent<PhotonView>().IsMine) return;
             StartCoroutine(DirectionButtonPressCheckLoop());
             StartCoroutine(ShootButtonPressCheckLoop());
         }
@@ -73,10 +73,10 @@ namespace Services
                     yield return null;
                     continue;
                 }
-                
+
                 //Если в стэке есть кнопка, которую отжали, убираем ее из стэка
                 keyCodesStack = DeleteKeyUpFromStack(keyCodesStack);
-
+                
                 currentKeyCode = GetLastPressedKeyCode(keyCodesStack);
                 
                 SendEvent(currentKeyCode);
@@ -87,9 +87,9 @@ namespace Services
 
         private List<KeyCode> DeleteKeyUpFromStack(List<KeyCode> stack)
         {
-            KeyCode codeToDelete = _buttonsMap.Keys.FirstOrDefault(code => Input.GetKeyUp(code) && stack.Contains(code));
+            List<KeyCode> codesToDelete = _buttonsMap.Keys.Where(code => !Input.GetKey(code) && stack.Contains(code)).ToList();
             
-            return codeToDelete == KeyCode.None ? stack : new List<KeyCode>(stack.Where(code => code != codeToDelete));
+            return codesToDelete.Count == 0 ? stack : new List<KeyCode>(stack.Where(code => !codesToDelete.Contains(code)));
         }
 
         private KeyCode GetLastPressedKeyCode(List<KeyCode> keyCodesStack)

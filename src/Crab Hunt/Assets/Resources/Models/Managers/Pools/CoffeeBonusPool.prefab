@@ -47,6 +47,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e7c08620dd84acf9a8e9c9dc8e99acf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _idPrefix: coffee
   _coffeeBonusPool:
   - {fileID: 3501697597897168387}
   - {fileID: 4787185931866951216}

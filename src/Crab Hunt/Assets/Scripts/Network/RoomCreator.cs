@@ -1,3 +1,4 @@
+using System;
 using System.Text;
 using ExitGames.Client.Photon;
 using Photon.Pun;
@@ -5,19 +6,25 @@ using Photon.Realtime;
 using Services;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 namespace Network
 {
     public class RoomCreator : MonoBehaviourPunCallbacks
     {
-        [SerializeField] private int _codeLength;
-        [SerializeField] private SceneLoader _sceneLoader;
         [SerializeField] private byte _eventCode;
         [SerializeField] private TMP_InputField _nameInput;
+        [SerializeField] private TMP_Text _emptyNameError;
         
         public void Create()
         {
-            string code = GenerateCode(_codeLength);
+            if (String.IsNullOrWhiteSpace(_nameInput.text))
+            {
+                _emptyNameError.enabled = true;
+                return;
+            }
+            string code = GenerateCode();
             PhotonNetwork.CreateRoom(code);
             Debug.Log($"Комната создана. Код - {code}");
         }
@@ -26,7 +33,7 @@ namespace Network
         {
             base.OnCreatedRoom();
             PhotonNetwork.AutomaticallySyncScene = true;
-            SendNetworkEvent();
+            //SendNetworkEvent();
         }
         
         private void SendNetworkEvent()
@@ -35,15 +42,16 @@ namespace Network
             PhotonNetwork.RaiseEvent(_eventCode, _nameInput.text, options, SendOptions.SendReliable);
         }
 
-        private string GenerateCode(int length)
+        private string GenerateCode()
         {
-            StringBuilder builder = new();
-            for (int i = 0; i < length; i++)
-            {
-                builder.Append((char) Random.Range('A', 'Z'));
-            }
-
-            return builder.ToString();
+            // StringBuilder builder = new();
+            // for (int i = 0; i < length; i++)
+            // {
+            //     builder.Append((char) Random.Range('A', 'Z'));
+            // }
+            //
+            // return builder.ToString();
+            return Random.Range(100, 1000).ToString();
         }
     }
 }

@@ -6,6 +6,7 @@ using Services;
 using TMPro;
 using UI;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Network
 {
@@ -14,6 +15,8 @@ namespace Network
         [SerializeField] private SceneLoader _sceneLoader;
         [SerializeField] private byte _eventCode;
         [SerializeField] private TMP_InputField _nameInput;
+        [SerializeField] private Toggle _isObserverToggle;
+        [SerializeField] private TMP_Text _emptyNameError;
         
         public override void OnEnable()
         {
@@ -23,6 +26,11 @@ namespace Network
 
         private void OnJoinRoomButtonPressed(string code)
         {
+            if (String.IsNullOrWhiteSpace(_nameInput.text))
+            {
+                _emptyNameError.enabled = true;
+                return;
+            }
             PhotonNetwork.JoinRoom(code);
         }
 
@@ -37,13 +45,8 @@ namespace Network
         private void SendNetworkEvent()
         {
             RaiseEventOptions options = new RaiseEventOptions { Receivers = ReceiverGroup.All};
-            object[] content = { _nameInput.text, PhotonNetwork.CurrentRoom.PlayerCount - 1 };
+            object[] content = { _nameInput.text, PhotonNetwork.CurrentRoom.PlayerCount - 1, _isObserverToggle.isOn };
             PhotonNetwork.RaiseEvent(_eventCode, content, options, SendOptions.SendReliable);
-        }
-        
-        public void Disconnect()
-        {
-            PhotonNetwork.Disconnect();
         }
 
         public override void OnDisable()

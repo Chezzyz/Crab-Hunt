@@ -48,6 +48,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3755e5530aa49c6be9989b176ec9b21, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _idPrefix: crab
   _crabPool:
   - {fileID: 748523614733804380}
   - {fileID: 1246211616874664045}

@@ -46,7 +46,10 @@ namespace Network
         {
             string playerName = (string)((object[]) data.CustomData)[0];
             int skinVariant = (int)((object[]) data.CustomData)[1];
-
+            bool isObserver = (bool)((object[]) data.CustomData)[2];
+            
+            if(isObserver) return;
+            
             PlayerData player = new (playerName, skinVariant);
             if (Instance._playersData.Count == 0)
             {

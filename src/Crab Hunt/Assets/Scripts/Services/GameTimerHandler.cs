@@ -30,6 +30,12 @@ namespace Services
                 return;
             }
             NetworkEventsHandler.GameCreatedForPlayer += OnGameStarted;
+            SceneLoader.SceneLoaded += OnSceneLoaded;
+        }
+
+        private void OnSceneLoaded(string scene)
+        {
+            if(scene == "Main") Destroy(gameObject);
         }
 
         private void OnGameStarted(PlayerData obj)
@@ -70,6 +76,12 @@ namespace Services
             _seconds += value;
             if(_seconds is < 0 or >= 60) _seconds = 0;
             _secondsText.text =$"{_seconds:00}";
+        }
+
+        private void OnDisable()
+        {
+            NetworkEventsHandler.GameCreatedForPlayer -= OnGameStarted;
+            SceneLoader.SceneLoaded -= OnSceneLoaded;
         }
     }
 }

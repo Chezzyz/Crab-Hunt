@@ -1,13 +1,14 @@
 ﻿using System;
+using Photon.Pun;
 using UnityEngine;
 
 namespace Characters.Players
 {
-    public class PlayerScoreHandler : MonoBehaviour
+    public class PlayerScoreHandler : MonoBehaviourPun
     {
         [SerializeField] private int _score;
 
-        public static event Action<Player, int, int> ScoreChanged; 
+        public static event Action<Player, int, int> ScoreChanged;
 
         private Player _player;
 

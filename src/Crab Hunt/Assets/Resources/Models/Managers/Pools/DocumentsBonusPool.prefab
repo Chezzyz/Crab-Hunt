@@ -47,6 +47,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bdea952c7bae4f50b8d2fc2420daee94, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _idPrefix: documents
   _documentsBonusPool:
   - {fileID: 8653200888124934819}
   - {fileID: 3278136164106745892}

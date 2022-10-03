@@ -19,6 +19,11 @@ namespace Characters.Players
         {
             return GetComponent<PhotonView>().ViewID;
         }
+
+        public bool IsMine()
+        {
+            return GetComponent<PhotonView>().IsMine;
+        }
         
         public void SetName(string playerName)
         {

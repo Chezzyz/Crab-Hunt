@@ -53,7 +53,11 @@ namespace Services
         public bool HasTileOnPosition(Vector2Int cellPosition)
         {
             Vector2Int localPos = GetMapLocalPosition(cellPosition);
-            return GetWallMap()[localPos.y, localPos.x];
+            bool[,] map = GetWallMap();
+            int g = map.GetLength(0);
+            if (localPos.y >= map.GetLength(0) || localPos.x >= map.GetLength(1) || localPos.y < 0 ||
+                localPos.x < 0) return false;
+            return map[localPos.y, localPos.x];
         }
 
         //Получить координаты центра клетки

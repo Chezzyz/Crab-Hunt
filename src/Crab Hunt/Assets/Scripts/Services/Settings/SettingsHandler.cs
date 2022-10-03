@@ -42,13 +42,13 @@ namespace Services.Settings
             _soundVolumeSlider.onValueChanged.AddListener(SetSoundVolumeLevel);
             _soundIsOnToggle = FindObjectOfType<SoundToggle>(true).GetComponent<Toggle>();
             _soundIsOnToggle.onValueChanged.AddListener(SetSoundIsOn);
-            _soundVolumeLevel = _soundVolumeSlider.value;
+            _soundVolumeSlider.value = _soundVolumeLevel;
             
             _musicVolumeSlider = FindObjectOfType<MusicVolumeSlider>(true).GetComponent<Slider>();
             _musicVolumeSlider.onValueChanged.AddListener(SetMusicVolumeLevel);
             _musicIsOnToggle = FindObjectOfType<MusicToggle>(true).GetComponent<Toggle>();
             _musicIsOnToggle.onValueChanged.AddListener(SetMusicIsOn);
-            _musicVolumeLevel = _musicVolumeSlider.value;
+            _musicVolumeSlider.value = _musicVolumeLevel;
 
             _resolutionDropdown = FindObjectOfType<ResolutionDropdown>(true).GetComponent<TMP_Dropdown>();
             _resolutionDropdown.options =
