@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using Characters.Players;
+﻿using Characters.Players;
 using Services;
-using TMPro;
 using UnityEngine;
 
 namespace UI

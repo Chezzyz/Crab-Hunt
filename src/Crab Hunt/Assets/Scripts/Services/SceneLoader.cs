@@ -12,6 +12,7 @@ namespace Services
         private float _sceneTransitionDuration;
 
         public static event System.Action<string> SceneLoaded;
+        public static event System.Action<string> SceneLoadingStarted;
 
         private void OnEnable()
         {
@@ -20,6 +21,7 @@ namespace Services
 
         public void LoadScene(string sceneName)
         {
+            SceneLoadingStarted?.Invoke(sceneName);
             StartCoroutine(LoadSceneWithDelay(sceneName, _sceneTransitionDuration));
         }
 
@@ -35,11 +37,13 @@ namespace Services
 
         public void LoadRoom()
         {
+            SceneLoadingStarted?.Invoke("Room");
             PhotonNetwork.LoadLevel("Room");
         }
         
         public void LoadLobby()
         {
+            SceneLoadingStarted?.Invoke("Lobby");
             PhotonNetwork.LoadLevel("Lobby");
         }
 

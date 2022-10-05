@@ -1,14 +1,16 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Characters.Players;
 using Network;
+using Other;
 using Photon.Pun;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 namespace Services
 {
-    public class PlayerSpawner : MonoBehaviourPun
+    public class PlayerSpawner : BaseGameHandler<PlayerSpawner>
     {
         [SerializeField] private string _prefabFolder;
         [SerializeField] private Player _playerPrefab;
@@ -17,55 +19,73 @@ namespace Services
         [SerializeField] private List<Sprite> _skinsList;
         [SerializeField] private Transform _playersParent;
 
-        public static event Action<Player> PlayerCreated;
+        private PlayerData _myPlayer;
 
-        private bool _myPlayerCreated = false;
+        public static event Action<Player> PlayerCreated;
 
         private void OnEnable()
         {
-            NetworkEventsHandler.PlayerJoinedRoom += OnPlayerJoinedRoom;
-            NetworkEventsHandler.GameCreatedForPlayer += OnPlayerJoinedRoom;
+            SceneLoader.SceneLoaded += OnSceneLoaded;
+            SceneLoader.SceneLoadingStarted += OnSceneLoadingStarted;
+        }
+        
+        private void OnSceneLoadingStarted(string scene)
+        {
+            if (scene is "Lobby" && Instance != null || scene is "ConnectMenu") Destroy(gameObject);
         }
 
-        private void OnPlayerJoinedRoom(PlayerData playerData)
+        private void OnSceneLoaded(string scene)
         {
-            if (_myPlayerCreated) return;
+            if (scene is "Lobby" or "Room")
+            {
+                if (NetworkPlayerHandler.Instance.IsObserver) return;
+                
+                _spawnPoints = FindObjectsOfType<SpawnPoint>().Select(point => point.transform).ToList();
+                _instantiator = FindObjectOfType<NetworkInstantiator>();
+                _playersParent = FindObjectOfType<PlayersPool>().transform;
 
-            int index = playerData.SkinVariant;
+                if (_myPlayer == null)
+                {
+                    StartCoroutine(NetworkInstantiateMyPlayer(NetworkPlayerHandler.Instance.PlayerName));
+                }
+                else
+                {
+                    StartCoroutine(NetworkInstantiateMyPlayer(_myPlayer.Name, _myPlayer.SkinVariant));
+                }
+            }
+        }
+
+        private IEnumerator NetworkInstantiateMyPlayer(string playerName, int index = -1)
+        {
+            if (index == -1)
+            {
+                yield return new WaitForSeconds(1);
+                index = FindObjectsOfType<Player>(true).Length;
+            }
+
             Player player = _instantiator.InstantiateObject<Player>(_prefabFolder + _playerPrefab.name,
                 _spawnPoints[index].position,
                 _playersParent);
-            photonView.RPC(nameof(SetPlayerNameRPC), RpcTarget.AllBuffered, player.GetViewId(), playerData.Name);
-            photonView.RPC(nameof(SendEventRPC), RpcTarget.AllBuffered, player.GetViewId());
-            photonView.RPC(nameof(SetPlayerSpriteRPC), RpcTarget.AllBuffered, player.GetViewId(), index);
-            _myPlayerCreated = true;
+            GetComponent<PhotonView>()
+                .RPC(nameof(SendEventRPC), RpcTarget.AllBuffered, player.GetViewId(), playerName, index);
+
+            _myPlayer = new PlayerData(playerName, index);
         }
 
         [PunRPC]
-        private void SetPlayerNameRPC(int playerId, string playerName)
+        private void SendEventRPC(int playerId, string playerName, int skinIndex)
         {
             Player player = PhotonView.Find(playerId).GetComponent<Player>();
             player.SetName(playerName);
-        }
+            player.SetSkin(_skinsList[skinIndex]);
 
-        [PunRPC]
-        private void SendEventRPC(int playerId)
-        {
-            Player player = PhotonView.Find(playerId).GetComponent<Player>();
             PlayerCreated?.Invoke(player);
         }
 
-        [PunRPC]
-        private void SetPlayerSpriteRPC(int playerId, int skinIndex)
-        {
-            Player player = PhotonView.Find(playerId).GetComponent<Player>();
-            player.SetSkin(_skinsList[skinIndex]);
-        }
-        
         private void OnDisable()
         {
-            NetworkEventsHandler.PlayerJoinedRoom -= OnPlayerJoinedRoom;
-            NetworkEventsHandler.GameCreatedForPlayer -= OnPlayerJoinedRoom;
+            SceneLoader.SceneLoaded -= OnSceneLoaded;
+            SceneLoader.SceneLoadingStarted -= OnSceneLoadingStarted;
         }
     }
 }

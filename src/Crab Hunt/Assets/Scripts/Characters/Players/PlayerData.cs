@@ -1,9 +1,9 @@
 ﻿namespace Characters.Players
 {
-    public struct PlayerData
+    public class PlayerData
     {
-        public string Name { get; set; }
-        public int SkinVariant { get; set; }
+        public string Name { get; }
+        public int SkinVariant { get; }
 
         public PlayerData(string name, int skin)
         {

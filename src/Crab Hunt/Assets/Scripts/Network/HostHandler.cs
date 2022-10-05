@@ -22,7 +22,7 @@ namespace Network
 
         private void LoadRoom()
         {
-            photonView.RPC(nameof(LoadRoomRPC), RpcTarget.All);
+            photonView.RPC(nameof(LoadRoomRPC), RpcTarget.AllBuffered);
         }
 
         [PunRPC]
